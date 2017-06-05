@@ -1,0 +1,14 @@
+[‎1/‎16/‎2017 4:08 PM] mumbai: 
+<script>
+var somevariavb =0;
+function opneinnewindow(){
+somevariavb = window.open(&apos;/modules/policequadv2/index.html&apos;);
+}
+function saveDataOnExit(){
+alert("hi");
+}
+</script>
+<main class="group span_10_of_12">
+<p style="Text-align:center;">Please click on the image below to enjoy the Police Quad Mission 1</p>
+<a href="/modules/policequadv2/index.html" onclick="javascript:Opneinnewindow() return false;" target="_blank"><img src="../Images/PoliceQuad_pt33x.png" alt="" class="photo-02up zoom-but-lg"/>
+</a></main>

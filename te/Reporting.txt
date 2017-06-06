@@ -1,0 +1,17 @@
+var JsonArray = [
+{
+"StudentGroupName": GroupName,
+"location": "SchoolName"
+},
+{
+"MissionsPlayed": playedMission,
+"highScore": highScore,
+"starTotal": gameScore
+},
+{
+"Mission1Stage": currentstage,
+"Mission2Stage": CurrentStage,
+"Mission3Stage": currentStage,
+"Mission4Stage": currentLevel
+}
+];

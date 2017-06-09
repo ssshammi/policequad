@@ -74,7 +74,7 @@ var JsonArray =
 
 }; 
 //pass the method to calculate score.
-window.opener.saveDataOnExit(JsonArray);
+//window.opener.saveDataOnExit(JsonArray);
 }
 
 function stageEnd( mmission,stagePlayed,replayCount,isPassed,caseDetails,scoreIN,stageStar){
@@ -99,7 +99,24 @@ var JsonArray =
 
 };  replayCount =0;
 //pass the method to calculate score.
-window.opener.saveDataStages(JsonArray);
+//window.opener.saveDataStages(JsonArray);
 //console.log(JsonArray);
 }
+var somevariavb =0;
+function opneinnewindow(){
+	console.log('no data');
+somevariavb = window.open('/modules/policequadv2/index.html');
+}
+function saveDataOnExit(JsonArray)
+{
+
+//gameReporter.submitData('/api/appdata/', JsonArray)
+console.log('hi');
+}
+function saveDataStages(JsonArray)
+{
+//gameReporter.submitData('/api/appdata/', JsonArray)
+console.log('hi-2');
+}
+
 

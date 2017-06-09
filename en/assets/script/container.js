@@ -102,7 +102,7 @@ $("#splash").fadeOut( "slow", function() {
   });
 $("#intro").fadeIn();
 }
-function OpenMenu(){backgroundSND.pause();backgroundSND.stop();
+function OpenMenu(){backgroundSND.pause();backgroundSND.stop(); startTimer();
 $("#intro").fadeOut( "slow", function() {
     // Animation complete
 	loadedComps['book'].getStage().play(1);
@@ -143,7 +143,7 @@ function mission(){
 //EnableMission2();
 
 }
-function Mission2(){ jQuery(".mmenu:eq(1)").show();
+function Mission2(){ playedMission[(1)] =1;  jQuery(".mmenu:eq(1)").show();
 mission2();
 EnableMission2();
 
@@ -196,7 +196,7 @@ function mission2(){
 //trnasStage
 
 //////////////
-function resetLevel(){
+function resetLevel(){  startTimerlvl();
 $j(CurrentMission+".toolb").hide();
 //isBonus=0;	
 isReleased =false;
@@ -280,17 +280,27 @@ function convXMLLoadedHandler(xmlDoc)
 	
 }
 var CurrentMission2 = "#mission2 ";
+
+function getdata2(){
+var figures =[];
+var clues =[];
+var errors =[];
+$j(CurrentMission2+' .rect').each(function (index){ figures.push( $(this).parent().prop("fig"));});
+$j(CurrentMission2+' .questionText').each(function (index){ clues.push( $(this).text());});
+$j(CurrentMission2+' .questionResponse').each(function (index){ errors.push( $(this).text());});
+return [currentCulpret,figures,clues,errors];
+}
 //CurrentLevel
 	//CurrentStage
 	//stageCoins = 6;
 	//missionTxt = "MISSION 2";
 function EnableMission2(){
-	jQuery(".feed:eq(1) .cont_btn").click(function() {    $j("#gloss_btn,#help_btn,#menu_btn").hide(); isBonus=1;
+	jQuery(".feed:eq(1) .cont_btn").click(function() { var hasB =isBonus;    $j("#gloss_btn,#help_btn,#menu_btn").hide(); isBonus=1;
 	if(currentScore>highScore)
 	highScore = currentScore;
 	$j(".scoretxt2").html(highScore);
 		if(isMatched){ 
-		
+		stageEnd( "Mission 2", CurrentStage,replayCount,"passed",getdata2(),currentScore,hasB);
 		CurrentStage++;
 		
 		$j(CurrentMission2+'.done').css('opacity','1');
@@ -302,7 +312,7 @@ function EnableMission2(){
 		$j(".feedback").hide("slide", function() {
 			jQuery(".end1").hide();
 			jQuery(".end1:eq(1)").show();
-			$j('.end2').show("slide");
+			$j('.end2').show("slide"); completedMission[1] =1;
 			transisitions();
 		});
 		return;
@@ -321,7 +331,7 @@ function EnableMission2(){
 			$j('.trans').show("slide");
 					
 		});
-		}else{
+		}else{ stageEnd( "Mission 2", CurrentStage,replayCount,"failed",getdata2(),currentScore,hasB);
 		//isBonus=0;
 		resetLevel();
 		mission2();
@@ -757,7 +767,7 @@ function PlaySound(respo){
 	
 }
 	function WIPAlerts(){
-			$j(CurrentMission2+'.reset').click(function() { 	
+			$j(CurrentMission2+'.reset').click(function() {  replayCount ++;	
 			 //alertify.alert('Reset is WIP');
 				isBonus=0;
 				resetLevel();
@@ -1118,12 +1128,14 @@ var Mission1Shapes  ="fig001,fig002,fig003,fig004,fig005,fig006,fig007,fig018,fi
 }); */
 
 function mission4(){
+playedMission[(3)] =1;
 	hideAllScreens();
 	setMission4();
 	$("#mission4").show();
 	beginGame();
 }
 function mission3(){
+playedMission[(2)] =1;
 	hideAllScreens();
 	setMission3();
 	$("#mission3").show();
@@ -1161,3 +1173,17 @@ var Hyperlinks= [["parallel",'<a class="example-image-link" target="_blank" href
 [" reflex angle",'<a class="example-image-link" target="_blank"  href="images/G_reflexAngle.png"> reflex angle</a>']
 ]; 
 
+/* Gameplay data - All Missions
+1.    Mission attempt number
+2.    Mission completed - yes/ no
+3.    Level wise data
+o	Stages attempted (linked to level)
+o	Stage completed (yes/ no)
+o	Highest Stage reached
+4.    Stage wise data
+o	Number of cases attempted (count of completed cases)
+o	Attempt number on case
+o	Number of cases solved correctly
+o	Number of cases replayed
+o	Stars earned/ Cases solved perfectly
+*/

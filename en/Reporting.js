@@ -1,6 +1,6 @@
 var playedMission =[0,0,0,0];
 var completedMission =[0,0,0,0];
-
+var language1 = "en";
 var StorySkiped = false;
 var GlossaryDownloaded = false;
 var helpScreen =[0,0,0,0];
@@ -96,7 +96,8 @@ var JsonArray =
 "NumberOfErrors": "", //infer it from case details values
 "NumberOfClues": "",//infer it from case details values
 "scoreAchieved": scoreIN,  //highScore
-"starEarned": stageStar //starts earned total
+"starEarned": stageStar, //starts earned total
+"language" : language1
 }
 
 };  replayCount =0;

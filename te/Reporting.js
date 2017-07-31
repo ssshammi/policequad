@@ -4,7 +4,7 @@ var language1 = "te";
 var StorySkiped = false;
 var GlossaryDownloaded = false;
 var helpScreen =[0,0,0,0];
-/* var JsonArray = [
+ var JsonArray = [
 {
 "StudentGroupName": GroupName,
 "location": "SchoolName"
@@ -23,10 +23,10 @@ var helpScreen =[0,0,0,0];
 "Mission3Stage": currentStage,
 "Mission4Stage": currentLevel +1
 }
-]; */
+]; 
 
 
-/* function doQuit(){
+ function doQuit(){
 JsonArray2 = [
 {
 "MissionsPlayed": playedMission, // Mission attempted [0,0,0,0]  1 is yes
@@ -46,36 +46,38 @@ JsonArray2 = [
 }
 ];
 //pass the method to calculate score.
-window.opener.saveDataOnExit(JsonArray2);
+saveDataOnExit(JsonArray2);
 
 
-} */
+} 
 
-function doQuit(){
-var JsonArray = 
-{
-"app_name": "policesquadv2",
-"event_type": "session_end",
-"params": 
-{
-"MissionsPlayed": playedMission, // Mission attempted [0,0,0,0]  1 is yes
-"MissionsCompleted": completedMission, //Mission completed - yes/ no
-"SessionTimeSpent": getTimeSpent(), //Mission time spent  total 
-"highScore": highScore,  //highScore
-"starTotal": gameScore, //starts earned total
-"StorySkiped": StorySkiped,  //story skiped
-"GlossaryDownloaded": GlossaryDownloaded,  //Glossary downloaded
-"helpScreenviewed": helpScreen, //help screen per Mission [0,0,0,0] 1 is yes
-"Mission1Stage": currentstage,
-"Mission2Stage": CurrentStage,
-"Mission3Stage": currentStage,
-"Mission4Stage": currentLevel +1
-}
+// function doQuit(){
+// var JsonArray = 
+// {
+// "app_name": "policesquadv2",
+// "event_type": "session_end",
+// "params": 
+// {
+// "MissionsPlayed": playedMission, // Mission attempted [0,0,0,0]  1 is yes
+// "MissionsCompleted": completedMission, //Mission completed - yes/ no
+// "SessionTimeSpent": getTimeSpent(), //Mission time spent  total 
+// "highScore": highScore,  //highScore
+// "starTotal": gameScore, //starts earned total
+// "StorySkiped": StorySkiped,  //story skiped
+// "GlossaryDownloaded": GlossaryDownloaded,  //Glossary downloaded
+// "helpScreenviewed": helpScreen, //help screen per Mission [0,0,0,0] 1 is yes
+// "Mission1Stage": currentstage,
+// "Mission2Stage": CurrentStage,
+// "Mission3Stage": currentStage,
+// "Mission4Stage": currentLevel +1
+// }
 
-}; 
-//pass the method to calculate score.
-//window.opener.saveDataOnExit(JsonArray);
-}
+// }; 
+// //pass the method to calculate score.
+// //window.opener.saveDataOnExit(JsonArray);
+
+
+// }
 
 function stageEnd( mmission,stagePlayed,replayCount,isPassed,caseDetails,scoreIN,stageStar){
 var JsonArray = 
@@ -88,7 +90,7 @@ var JsonArray =
 "CurrentLevel": "", //please infer per mission
 "StagePlayed": stagePlayed, // cases attempted
 "ReplayUsedNumber": replayCount, //Mission completed - yes/ no
-"statusConpleted": isPassed, //passed or failed
+"statusCompleted": isPassed, //passed or failed
 "TimeSpentStage": getTimeSpentLvl(), //Mission time spent  total 
 "CaseDetails": caseDetails,
 "NumberOfErrors": "", //infer it from case details values
@@ -100,12 +102,11 @@ var JsonArray =
 
 };  replayCount =0;
 //pass the method to calculate score.
-//window.opener.saveDataStages(JsonArray);
-//console.log(JsonArray);
+saveDataStages(JsonArray);
+console.log(JsonArray);
 }
-
 //starting code for gstudio
-/*var somevariavb =0;
+var somevariavb =0;
 function opneinnewindow(){
 somevariavb = window.open('/modules/policequadv2/index.html');
 }
@@ -123,22 +124,33 @@ class GameReporter
 {
 	constructor(data) {
 		this.session_id = this.getCookie('session_uuid')
+		// alert(this.getCookie('user_id'))
 	}
 
 	submitData(url, data) {
-	
-
-
-           	var xhr = new XMLHttpRequest();
+		var user_id = this.getCookie('user_id')
 		var data_string = {}
-		data_string['session_id'] = this.getCookie('session_uuid');
+		data_string['user_id'] = this.getCookie('user_id');
+		var date = new Date();
+		var csrftoken;
+		csrftoken = this.getCookie('csrftoken');
+    	var timestamp = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+		data_string['created_at'] = timestamp
 		for (var key in data) {data_string[key] = data[key];};
 		data_string = JSON.stringify(data_string);
-
-		xhr.open('POST', url, false);
-		xhr.setRequestHeader("Content-Type","application/json");
-		xhr.send(data_string);
-		return xhr.response
+		$.ajax({
+                  type: "POST",
+                  data:{
+                        "user_data":data_string,
+                        "app_name":"policesquad",
+                        'csrfmiddlewaretoken':csrftoken,
+                    },
+                  url: "/tools/logging",
+                  datatype: "json",
+                  success: function(data) {
+                }
+            });
+		// return xhr.response
 	}
 	getCookie(cname) {
 		var name = cname + "=";
@@ -149,9 +161,9 @@ class GameReporter
 			if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
 		}
         console.log('no uuid found')
+        // alert(cname)
 	}
 }
 var gameReporter = new GameReporter();
 //returnGameReporter();
-*/
 

@@ -97,7 +97,15 @@ var JsonArray =
 "NumberOfClues": "",//infer it from case details values
 "scoreAchieved": scoreIN,  //highScore
 "starEarned": stageStar, //starts earned total
-"language" : language1
+"language" : language1,
+"MissionsPlayed": playedMission, // Mission attempted [0,0,0,0]  1 is yes
+"MissionsCompleted": completedMission, //Mission completed - yes/ no
+"SessionTimeSpent": getTimeSpent(), //Mission time spent  total 
+"highScore": highScore,  //highScore
+"starTotal": gameScore, //starts earned total
+"StorySkiped": StorySkiped,  //story skiped
+"GlossaryDownloaded": GlossaryDownloaded,  //Glossary downloaded
+"helpScreenviewed": helpScreen, //help screen per Mission [0,0,0,0] 1 is yes
 }
 
 };  replayCount =0;
@@ -129,6 +137,8 @@ class GameReporter
 
 	submitData(url, data) {
 		var user_id = this.getCookie('user_id')
+		var buddy_details = ""
+		buddy_details = this.getCookie('user_and_buddy_ids') 
 		var data_string = {}
 		data_string['user_id'] = this.getCookie('user_id');
 		var date = new Date();
@@ -136,8 +146,10 @@ class GameReporter
 		csrftoken = this.getCookie('csrftoken');
     	var timestamp = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 		data_string['created_at'] = timestamp
+		data_string['buddy_details'] = buddy_details
 		for (var key in data) {data_string[key] = data[key];};
 		data_string = JSON.stringify(data_string);
+		
 		$.ajax({
                   type: "POST",
                   data:{

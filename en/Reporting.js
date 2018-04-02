@@ -143,10 +143,13 @@ class GameReporter
 		data_string['user_id'] = this.getCookie('user_id');
 		var date = new Date();
 		var csrftoken;
+		var sessionid = ""
 		csrftoken = this.getCookie('csrftoken');
+		sessionid = this.getCookie('sessionid')
     	var timestamp = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 		data_string['created_at'] = timestamp
 		data_string['buddy_details'] = buddy_details
+		data_string['sessionid'] = sessionid
 		for (var key in data) {data_string[key] = data[key];};
 		data_string = JSON.stringify(data_string);
 		

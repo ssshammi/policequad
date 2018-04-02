@@ -138,18 +138,20 @@ class GameReporter
 	submitData(url, data) {
 		var user_id = this.getCookie('user_id')
 		var buddy_details = ""
+		var sessionid = ""
 		buddy_details = this.getCookie('user_and_buddy_ids') 
 		var data_string = {}
 		data_string['user_id'] = this.getCookie('user_id');
+		sessionid = this.getCookie('sessionid')
 		var date = new Date();
 		var csrftoken;
 		csrftoken = this.getCookie('csrftoken');
     	var timestamp = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 		data_string['created_at'] = timestamp
 		data_string['buddy_details'] = buddy_details
+		data_string['sessionid'] = sessionid
 		for (var key in data) {data_string[key] = data[key];};
 		data_string = JSON.stringify(data_string);
-		
 		$.ajax({
                   type: "POST",
                   data:{

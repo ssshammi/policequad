@@ -143,8 +143,8 @@ backgroundPlaying = false;
 				},
 			volume: 1
 			});
-			
-			
+var HyperlinksClicked =[];			
+var ToolsClicked =[];			
 	//button_click_normal.mp3
 	//button_click_special.mp3
 	//intro Splash Loop.mp3

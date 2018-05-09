@@ -4,6 +4,7 @@ Custom SCORM Code - Begins
 **************************************************/
 var LMSCourseStaff = true;
 var startTime = 0;
+var startTimelvl = 0;
 var LMSTracking = false;
 var dataReady = false;
 var courseId= "CenovusSAGD-Game";
@@ -48,6 +49,7 @@ teamSelected= parseInt(subs.substring(1, subs.length-1));
 		dataReady = true;
 		init();
 	}
+	startTimer();
 }
 function callGetValue()
 {
@@ -95,6 +97,11 @@ function startTimer()
 {
 	startTime = new Date().getTime();
 }
+
+function startTimerlvl()
+{
+	startTimelvl = new Date().getTime();
+}
 /*function getTimeSpent()
 {
 	var date = new Date();
@@ -135,6 +142,30 @@ function getTimeSpent()
 		return Math.ceil(min1);
 	else
 		return Math.ceil(addHrs+min1);
+}
+
+function getTimeSpentLvl()
+{
+	var date = new Date();
+	var logoffTime = date.getTime();
+	timeDiff = logoffTime - startTimelvl;
+	sec = timeDiff/1000;
+	tmp = sec/3600;
+	hrs = Math.floor(tmp);
+	min1 = (tmp - hrs) * 60;
+	min = Math.floor(min1);
+	sec1 = (min1-min)*60;
+	sec = Math.floor(sec1);
+	//if (hrs < 10) hrs = "0" + hrs;
+	//if (min < 10) min = "0" + min;
+	//if (sec < 10) sec = "0" + sec;
+	time = hrs + ":" + min + ":" + sec;
+	/*var addHrs = hrs * 60;
+	if(hrs<1)
+		return Math.ceil(min1);
+	else
+		return Math.ceil(addHrs+min1);*/
+	return time;
 }
 
 

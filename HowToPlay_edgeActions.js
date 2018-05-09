@@ -94,6 +94,12 @@ var Composition = Edge.Composition, Symbol = Edge.Symbol; // aliases for commonl
       });
       //Edge binding end
 
+      Symbol.bindTriggerAction(compId, symbolName, "Default Timeline", 0, function(sym, e) {
+         sym.stop();
+
+      });
+      //Edge binding end
+
    })("Mission2");
    //Edge symbol end:'Mission2'
 
@@ -193,6 +199,12 @@ var Composition = Edge.Composition, Symbol = Edge.Symbol; // aliases for commonl
       });
          //Edge binding end
 
+      Symbol.bindTriggerAction(compId, symbolName, "Default Timeline", 0, function(sym, e) {
+         sym.stop();
+
+      });
+      //Edge binding end
+
       })("Mission1");
    //Edge symbol end:'Mission1'
 
@@ -268,6 +280,12 @@ var Composition = Edge.Composition, Symbol = Edge.Symbol; // aliases for commonl
          //Edge binding end
 
       Symbol.bindTriggerAction(compId, symbolName, "Default Timeline", 2250, function(sym, e) {
+         sym.stop();
+
+      });
+      //Edge binding end
+
+      Symbol.bindTriggerAction(compId, symbolName, "Default Timeline", 0, function(sym, e) {
          sym.stop();
 
       });
@@ -354,6 +372,12 @@ var Composition = Edge.Composition, Symbol = Edge.Symbol; // aliases for commonl
       //Edge binding end
 
       Symbol.bindTriggerAction(compId, symbolName, "Default Timeline", 2250, function(sym, e) {
+         sym.stop();
+
+      });
+      //Edge binding end
+
+      Symbol.bindTriggerAction(compId, symbolName, "Default Timeline", 0, function(sym, e) {
          sym.stop();
 
       });

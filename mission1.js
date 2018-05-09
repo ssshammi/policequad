@@ -1,5 +1,5 @@
 function Mission1(){
-$j("#gloss_btn,#help_btn,#menu_btn").show();
+$j("#gloss_btn,#help_btn,#menu_btn").show(); startTimerlvl();
 mission1();
 }
 var CurrentMission1 ="#mission1 ";
@@ -18,7 +18,7 @@ var showShapes1 = [4,4,4,6,6,6,6,6,6];
 
 var coinsImg1 =["url(images/coin10.png)","url(images/coin10.png)","url(images/coin10.png)","url(images/coin20.png)","url(images/coin20.png)","url(images/coin20.png)","url(images/coin30.png)","url(images/coin30.png)","url(images/coin30.png)"];
 var coinsImg2 =["url(images/coin50_green.png)","url(images/coin50_green.png)","url(images/coin50_green.png)","url(images/coin100_green.png)","url(images/coin100_green.png)","url(images/coin100_green.png)","url(images/coin150.png)","url(images/coin150.png)","url(images/coin150.png)"];
-function mission1(){	jQuery(".mmenu:eq(0)").show();
+function mission1(){	playedMission[(0)] =1; jQuery(".mmenu:eq(0)").show();
 	startMission1();
 mission1Enable();
 
@@ -141,7 +141,15 @@ ttThis.find('line').hover(function(){
 			$j(CurrentMission1+".coin").prop("coinVal", coinsValue1[currentstage-1]);
 			$j(CurrentMission1+".coin:eq(7)").prop("coinVal", coinsGStack1[currentstage-1]);
 	}
-
+function getdata1(){
+var figures =[];
+var clues =[];
+var errors =[];
+$j(CurrentMission1+' .rect').each(function (index){ figures.push( $(this).parent().prop("fig"));});
+$j(CurrentMission1+' .questionText').each(function (index){ clues.push( $(this).text());});
+$j(CurrentMission1+' .questionResponse').each(function (index){ errors.push( $(this).text());});
+return [mainClue,figures,clues,errors];
+}
 	
 //Added by Abhishek Shrimali
 	var previousShapeType = 0;
@@ -149,17 +157,17 @@ ttThis.find('line').hover(function(){
 	var actualAllowedClueCount = 0;
 //Added by Abhishek Shrimali	
 function mission1Enable(){
-$j(CurrentMission1+'.reset').click(function() { 	
+$j(CurrentMission1+'.reset').click(function() { 	 replayCount ++;
 			 //alertify.alert('Reset is WIP');
 				isBonus=0;
 				resetLevel1();
 			 });
-jQuery(".feed:eq(0) .cont_btn").click(function() {  $j("#gloss_btn,#help_btn,#menu_btn").hide();isBonus=1;
+jQuery(".feed:eq(0) .cont_btn").click(function() {  var hasB =isBonus; $j("#gloss_btn,#help_btn,#menu_btn").hide();isBonus=1;
 	if(currentScore>highScore)
 		highScore = currentScore;
 		$j(".scoretxt2").html(highScore);
 		if(isMatched){ 
-		
+		stageEnd( "Mission 1", currentstage,replayCount,"passed",getdata1(),currentScore,hasB);
 		currentstage++;
 			isBonus=1;
 		/* resetLevel();
@@ -169,7 +177,7 @@ jQuery(".feed:eq(0) .cont_btn").click(function() {  $j("#gloss_btn,#help_btn,#me
 		$j(".feedback").hide("slide", function() {
 			jQuery(".end1").hide();
 			jQuery(".end1:eq(0)").show();			
-			$j('.end2').show("slide");
+			$j('.end2').show("slide"); completedMission[0] =1;
 			transisitions();
 		});
 		return;
@@ -185,7 +193,7 @@ jQuery(".feed:eq(0) .cont_btn").click(function() {  $j("#gloss_btn,#help_btn,#me
 			else resetLevel1();
 		});
 		}else{ 
-		
+		stageEnd( "Mission 1", currentstage,replayCount,"failed",getdata1(),currentScore,hasB);
 		resetLevel1();
 		//resetLevel();
 		//mission2();
@@ -217,7 +225,7 @@ $j(CurrentMission1+".ToolMain2:visible").freetrans('destroy');
 	var imgpath = $j(this).find('.img').css("background-image").replace(pathURL,"");
 	$j(this).find('.img').css('background-image',imgpath.replace(imgpath.substring(imgpath.indexOf("_"),imgpath.indexOf(".")),"_up"));
 	});
-	$j(this).addClass('active');
+	$j(this).addClass('active'); pushtoolsClicked("Right Angle tool");
 	$j(CurrentMission1+".ToolMain").show();
 	$j(CurrentMission1+".ToolMain").freetrans({ x: 250, y: 150, 'rot-origin': '50% 50%'});
 		var imgpath = $j(this).find('.img').css("background-image").replace(pathURL,"");
@@ -254,7 +262,7 @@ $j(CurrentMission1+".ToolMain2:visible").freetrans('destroy');
 	var imgpath = $j(this).find('.img').css("background-image").replace(pathURL,"");
 	$j(this).find('.img').css('background-image',imgpath.replace(imgpath.substring(imgpath.indexOf("_"),imgpath.indexOf(".")),"_up"));
 	});
-	$j(this).addClass('active');
+	$j(this).addClass('active');  pushtoolsClicked("Equal Sides tool");
 	var imgpath = $j(this).find('.img').css("background-image").replace(pathURL,"");
 	$j(this).find('.img').css('background-image',imgpath.replace(imgpath.substring(imgpath.indexOf("_"),imgpath.indexOf(".")),"_selected"));
 	
@@ -319,7 +327,7 @@ $j(CurrentMission1+".ToolMain2:visible").freetrans('destroy');
 	var imgpath = $j(this).find('.img').css("background-image").replace(pathURL,"");
 	$j(this).find('.img').css('background-image',imgpath.replace(imgpath.substring(imgpath.indexOf("_"),imgpath.indexOf(".")),"_up"));
 	});
-	$j(this).addClass('active');
+	$j(this).addClass('active'); pushtoolsClicked("Parallel Lines tool");
 	var imgpath = $j(this).find('.img').css("background-image").replace(pathURL,"");
 	$j(this).find('.img').css('background-image',imgpath.replace(imgpath.substring(imgpath.indexOf("_"),imgpath.indexOf(".")),"_selected"));
 	$j(CurrentMission1+'.rect').each(function (){
@@ -409,7 +417,7 @@ $j(CurrentMission1+".ToolMain2:visible").freetrans('destroy');
 				
 			}
 		}); */		ReleasedOut[ReleasedOut.length] ="none";
-					//$j(CurrentMission1+'.questionResponse:eq(0)').html("Skip");
+					$j(CurrentMission1+'.questionResponse:eq(0)').html("Skip");
 					//var colorCorrect= "rgb(255, 214, 0)";
 					//$j(CurrentMission1 +'.ask').off();
 					var colorCorrect= "rgb(248, 13, 13)";
@@ -538,7 +546,7 @@ $j(CurrentMission1+".ToolMain2:visible").freetrans('destroy');
 	
 
 	var QuestionText = 'The culprit has ' + appendStatement;
-	var QuestionDiv ='<div class="questionField" style="position: relative; margin: 0px;  width: 690px; margin: 5px; height: 20px; right: auto; bottom: auto; "><div class="questionText" style="position: absolute;    text-align: left; margin: 0px; left: 0px; top: 0px; width: 525px; height: 20px; right: auto; bottom: auto;  font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: rgb(81, 249, 255); font-weight: 700; text-decoration: none;">'+QuestionText+'</div><div class="questionResponse" style="position: absolute; margin: 0px; left: 518px; top: 0px; width: 160px; height: 20px; right: auto; bottom: auto;  font-family: Arial, Helvetica, sans-serif; font-size: 16px; color: rgb(168, 255, 81); font-weight: 700; text-decoration: none; text-align: right;">'+'</div><div class="questionLine" style="position: absolute; margin: 0px; left: 0px; top: 20px; width: 683px; height: 1px; right: auto; bottom: auto; border: 0px none rgb(0, 0, 0);  background-color: rgb(50, 133, 180);"></div></div>';
+	var QuestionDiv ='<div class="questionField" style="position: relative; margin: 0px;  width: 690px; margin: 5px; height: 20px; right: auto; bottom: auto; "><div class="questionText" style="position: absolute;    text-align: left; margin: 0px; left: 0px; top: 0px; width: 525px; height: 20px; right: auto; bottom: auto;  font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: rgb(81, 249, 255); font-weight: 700; text-decoration: none;">'+QuestionText+'</div><div class="questionResponse" style="display: none;position: absolute; margin: 0px; left: 518px; top: 0px; width: 160px; height: 20px; right: auto; bottom: auto;  font-family: Arial, Helvetica, sans-serif; font-size: 16px; color: rgb(168, 255, 81); font-weight: 700; text-decoration: none; text-align: right;">'+'</div><div class="questionLine" style="position: absolute; margin: 0px; left: 0px; top: 20px; width: 683px; height: 1px; right: auto; bottom: auto; border: 0px none rgb(0, 0, 0);  background-color: rgb(50, 133, 180);"></div></div>';
 	var feedBackDiv ='<div class="feedbackStatment" resp="'+statmentF+'" statment="'+mainClue+'" style="position: relative; margin: 5px;   width: 336px; height: 23px; right: auto; bottom: auto; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); transform: translateZ(0px);"><div class="statmentText" style="position: absolute; margin: 0px; left: 18px; top: 0px; width: 290px; height: 20px; right: auto; bottom: auto; font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: rgb(255, 255, 255); font-weight: 700; text-decoration: none;">'+QuestionText+'</div><div style="position: absolute; margin: 0px; left: 264px; top: 0px; width: 60px; height: 20px; right: auto; bottom: auto; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: rgb(168, 255, 81); font-weight: 700; text-decoration: none; text-align: right;">'+'</div><div style="position: absolute; margin: 0px; left: 0px; top: 20px; width: 683px; height: 1px; right: auto; bottom: auto; border: 0px none rgb(0, 0, 0); -webkit-tap-highlight-color: rgba(0, 0, 0, 0); background-color: rgb(50, 133, 180);"></div><div class="spot" style="position: absolute; margin: 0px; left: 0px; top: 1px; width: 13px; height: 13px; right: auto; bottom: auto; border-radius: 50%; border: 0px none rgb(0, 0, 0);  background-color: #1dc105;"></div></div>';
 	$j(CurrentMission1+'.sample').hide();
 	//$j(CurrentMission1+'.cluetext').html(QuestionText);
@@ -676,7 +684,7 @@ function enableReleaseCLICK(){
 					}else
 					incorrectSeletion =(incorrectSeletion || true);
 				}); */
-				if(incorrectSeletion ){
+				if(incorrectSeletion ){ IncorrectRelease.push({"clue":$j(CurrentMission1+'.questionResponse').length,"fig":$j(CurrentMission1+'.grid.selected').not('.released').map(function() { return $j(this).prop("fig")}).get()});
 					if(currentScore > coinsValue1[currentstage-1]){
 					if(isBonus==1){
 						$j(CurrentMission1+" .coin:eq(7)").effect( "explode", {}, 500, callbackPuff1 );
@@ -688,10 +696,13 @@ function enableReleaseCLICK(){
 					alertify.error('Token Lost incorrect suspect released.' );
 					}
 				}else{
+					CorrectRelease.push({"clue":$j(CurrentMission1+'.questionResponse').length,"fig":$j(CurrentMission1+'.grid.selected').not('.released').map(function() { return $j(this).prop("fig")}).get()});
+					
+					
 				correctRelease.play();
 				}
 				var txtCorrect= (incorrectSeletion?"Incorrect":"Correct");
-				//$j(CurrentMission1+'.questionResponse:eq(0)').html(txtCorrect);
+				$j(CurrentMission1+'.questionResponse:eq(0)').html(txtCorrect);
 				var colorCorrect= (incorrectSeletion?"rgb(248, 13, 13)":"#99cc00");				
 				$j(CurrentMission1+'.questionResponse:eq(0)').css("color",colorCorrect)
 				$j(CurrentMission1+'.grid.selected').addClass("released");
@@ -889,7 +900,7 @@ var allowedClues =[];
 var allowedClueCount =0;
 
 
-function resetLevel1(){ $j("#gloss_btn,#help_btn,#menu_btn").show();
+function resetLevel1(){ $j("#gloss_btn,#help_btn,#menu_btn").show(); startTimerlvl();
 //isBonus =0;
 TotalShapes = showShapes1[currentstage-1];
 cluesAsk=[];

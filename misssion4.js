@@ -508,6 +508,11 @@ var coinsImg44 =["url(images/coin1000.png)"];
     }
   }
  }
+ 
+ function getdata4(){
+
+return [computerShape,computerSelectedPoints,aSelectedVertex,compVFound,playerVFound];
+}
   // End of initializations
   function beginGame() {  jQuery(".mmenu:eq(3)").show();
   $j("#gloss_btn,#help_btn,#menu_btn").show();
@@ -520,12 +525,14 @@ var coinsImg44 =["url(images/coin1000.png)"];
 		if(currentScore>highScore)
 		highScore = currentScore;
 		$j(".scoretxt2").html(highScore);
-		if(MatchedH =="player"){
+		if(MatchedH =="player"){		
+		stageEnd( "Mission 4", currentLevel+1,0,"passed",getdata4(),currentScore,isBonus);
+		
 		if(currentLevel == 5){ $j("#gloss_btn,#help_btn,#menu_btn").hide(); 
 		$j('.trans').hide();
 		$j(".feedback").hide("slide", function() {
 			jQuery(".end1").hide();
-			jQuery(".end1:eq(3)").show();
+			jQuery(".end1:eq(3)").show(); completedMission[3] =1;
 			$j('.end2').show("slide");
 			transisitions();
 		});
@@ -541,7 +548,7 @@ var coinsImg44 =["url(images/coin1000.png)"];
 			}
 			else nextClick(MatchedH);
 		});
-		}else{
+		}else{ stageEnd( "Mission 4", currentLevel+1,0,"failed",getdata4(),currentScore,0);
 		nextClick(MatchedH);
 		}
 	});
@@ -551,7 +558,7 @@ var coinsImg44 =["url(images/coin1000.png)"];
   
   var ShapeBox =["square","square","rectangle","rectangle","rhombus","parallelogram"];
   var currentLevelDisplay4=[1,1,2,2,3,3,3];
-   function levelChange(level) { $j("#gloss_btn,#help_btn,#menu_btn").show(); $j(".Thinking").hide();
+   function levelChange(level) { $j("#gloss_btn,#help_btn,#menu_btn").show(); $j(".Thinking").hide(); startTimerlvl();
   // console.log("changed");
    $j(".mission").html("MISSION 4");
 	$j(".level").html("LEVEL "+currentLevelDisplay4[level]);
@@ -598,22 +605,22 @@ var coinsImg44 =["url(images/coin1000.png)"];
       legalShapes = squares5;
       computerShape = squares5axis[Math.floor(Math.random()*squares5axis.length)];
       gridSize = 5;
-		$j(".teleporter1Shape").html("Your teleporter is a <a class='example-image-link' target='_blank' href='images/G_square.png'><b>square</b></a>");
-		$j(".oppText").html("The enemy teleporter is a <a class='example-image-link' target='_blank' href='images/G_square.png'><b>square</b></a>");
+		$j(".teleporter1Shape").html("Your teleporter is a <a class='example-image-link' onclick='pushHyerlink("+"'square'"+")' target='_blank' href='images/G_square.png'><b>square</b></a>");
+		$j(".oppText").html("The enemy teleporter is a <a class='example-image-link' onclick='pushHyerlink("+"'square'"+")' target='_blank' href='images/G_square.png'><b>square</b></a>");
      // teleporter1Shape.style.display = "block";
     } else if(level === 1) {
       legalShapes = squares5;
       computerShape = squares5[Math.floor(Math.random()*squares5.length)];
       gridSize = 5;
-		$j(".teleporter1Shape").html("Your teleporter must be a <a class='example-image-link' target='_blank' href='images/G_square.png'><b>square</b></a>");
-		$j(".oppText").html("The enemy teleporter is a <a class='example-image-link' target='_blank' href='images/G_square.png'><b>square</b></a>");
+		$j(".teleporter1Shape").html("Your teleporter must be a <a class='example-image-link' onclick='pushHyerlink("+"'square'"+")'  target='_blank' href='images/G_square.png'><b>square</b></a>");
+		$j(".oppText").html("The enemy teleporter is a <a class='example-image-link' onclick='pushHyerlink("+"'square'"+")'  target='_blank' href='images/G_square.png'><b>square</b></a>");
      // teleporter1Shape.style.display = "block";
     } else if(level === 2) {
       legalShapes = squares5.concat(rectangles5);
       computerShape = rectangles5axis[Math.floor(Math.random()*rectangles5axis.length)];
       gridSize = 5;
-     $j(".teleporter1Shape").html("Your teleporter is a <a class='example-image-link' target='_blank' href='images/G_rectangle.png'><b>rectangle</b></a>");
-    $j(".oppText").html("The enemy teleporter is a <a class='example-image-link' target='_blank' href='images/G_rectangle.png'><b>rectangle</b></a>");
+     $j(".teleporter1Shape").html("Your teleporter is a <a class='example-image-link' onclick='pushHyerlink("+"'rectangle'"+")' target='_blank' href='images/G_rectangle.png'><b>rectangle</b></a>");
+    $j(".oppText").html("The enemy teleporter is a <a class='example-image-link' onclick='pushHyerlink("+"'rectangle'"+")' target='_blank' href='images/G_rectangle.png'><b>rectangle</b></a>");
      // teleporter1Shape.style.display = "block";
     } else if(level === 3) {
       legalShapes = squares5.concat(rectangles5);
@@ -623,8 +630,8 @@ var coinsImg44 =["url(images/coin1000.png)"];
       }
       computerShape = temp[Math.floor(Math.random()*temp.length)];
       gridSize = 5;
-		$j(".teleporter1Shape").html("Your teleporter is a <a class='example-image-link' target='_blank' href='images/G_rectangle.png'><b>rectangle</b></a>");
-		$j(".oppText").html("The enemy teleporter is a <a class='example-image-link' target='_blank' href='images/G_rectangle.png'><b>rectangle</b></a>");
+		$j(".teleporter1Shape").html("Your teleporter is a <a class='example-image-link' onclick='pushHyerlink("+"'rectangle'"+")' target='_blank' href='images/G_rectangle.png'><b>rectangle</b></a>");
+		$j(".oppText").html("The enemy teleporter is a <a class='example-image-link' onclick='pushHyerlink("+"'rectangle'"+")'  target='_blank' href='images/G_rectangle.png'><b>rectangle</b></a>");
      // teleporter2Shape.innerHTML = "The enemy// teleporter is a rectangle or a square";
      // teleporter1Shape.style.display = "block";
     } else if(level === 4) {
@@ -635,8 +642,8 @@ var coinsImg44 =["url(images/coin1000.png)"];
       }
       computerShape = temp[Math.floor(Math.random()*temp.length)];
       gridSize = 5;
-	    $j(".teleporter1Shape").html("Your teleporter is a <a class='example-image-link' target='_blank' href='images/G_rhombus.png'><b>rhombus</b></a>");
-		$j(".oppText").html("The enemy teleporter is a <a class='example-image-link' target='_blank' href='images/G_rhombus.png'><b>rhombus</b></a>");
+	    $j(".teleporter1Shape").html("Your teleporter is a <a class='example-image-link' onclick='pushHyerlink("+"'rhombus'"+")'  target='_blank' href='images/G_rhombus.png'><b>rhombus</b></a>");
+		$j(".oppText").html("The enemy teleporter is a <a class='example-image-link' onclick='pushHyerlink("+"'rhombus'"+")'  target='_blank' href='images/G_rhombus.png'><b>rhombus</b></a>");
      // teleporter2Shape.innerHTML = "The enemy// teleporter is a rhombus";
      // teleporter1Shape.style.display = "block";
     } else if(level === 5){   // level === 5
@@ -655,8 +662,8 @@ var coinsImg44 =["url(images/coin1000.png)"];
       }
       computerShape = temp[Math.floor(Math.random()*temp.length)];
       gridSize = 4;
-	  	    $j(".teleporter1Shape").html("Your teleporter is a <a class='example-image-link' target='_blank' href='images/G_parallelogram.png'><b>parallelogram</b></a>");
-			$j(".oppText").html("The enemy teleporter is a <a class='example-image-link' target='_blank' href='images/G_parallelogram.png'><b>parallelogram</b></a>");
+	  	    $j(".teleporter1Shape").html("Your teleporter is a <a class='example-image-link' onclick='pushHyerlink("+"'parallelogram'"+")' target='_blank' href='images/G_parallelogram.png'><b>parallelogram</b></a>");
+			$j(".oppText").html("The enemy teleporter is a <a class='example-image-link' onclick='pushHyerlink("+"'parallelogram'"+")' target='_blank' href='images/G_parallelogram.png'><b>parallelogram</b></a>");
      // teleporter2Shape.innerHTML = "The enemy// teleporter is a parallelogram";
      // teleporter1Shape.style.display = "block";
     }
@@ -670,7 +677,7 @@ var coinsImg44 =["url(images/coin1000.png)"];
  */
     currentLevel = level;
 	$j(".teleporter1Shape").find('.example-image-link').each(function() { //console.log("hi");
-       $j(this).featherlight();;
+       $j(this).featherlight();
     });
 	$j(".oppText").find('.example-image-link').each(function() { //console.log("hi");
        $j(this).featherlight();;

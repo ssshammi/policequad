@@ -1,23 +1,35 @@
 var CurrentMission = "#mission3 ";
-
+var replayCount =0;
+function getdata3(){
+var figures =[];
+var clues =[];
+var errors =[];
+$j(CurrentMission+' .rect').each(function (index){ figures.push( $(this).parent().prop("fig"));});
+$j(CurrentMission+' .questionText').each(function (index){ clues.push( $(this).text());});
+$j(CurrentMission+' .questionResponse').each(function (index){ errors.push( $(this).text());});
+return [ruleIs,figures,clues,errors];
+}
 function beginGame3(){  jQuery(".mmenu:eq(2)").show();
-	$j(CurrentMission+'.reset').click(function() { 
+	$j(CurrentMission+'.reset').click(function() {  replayCount ++;
 		isBonus=0;
 		resetLevel3();
 		//startNextLevel();
 	});
 	
-	 jQuery(".feed:eq(2) .cont_btn").click(function() {   isBonus=1 ;
+	 jQuery(".feed:eq(2) .cont_btn").click(function() { var hasB =isBonus;   isBonus=1 ;
+
 			if(currentScore>highScore)
 		highScore = currentScore;
 		$j(".scoretxt2").html(highScore);
-		if(shapeOrigin=='Allowed'){ isBonus=1; currentStage=currentStage+1;
+		if(shapeOrigin=='Allowed'){
+		stageEnd( "Mission 3", currentStage,replayCount,"passed",getdata3(),currentScore,hasB);
+		isBonus=1; currentStage=currentStage+1;
 		if(currentStage == 6){ $j("#gloss_btn,#help_btn,#menu_btn").hide();
 		$j('.trans3').hide();
 		$j(".feedback").hide("slide", function() {
 			jQuery(".end1").hide();
 			jQuery(".end1:eq(2)").show();
-			$j('.end2').show("slide");
+			$j('.end2').show("slide"); completedMission[2] =1;
 			transisitions();
 			currentStage = 5;
 		});
@@ -35,6 +47,7 @@ function beginGame3(){  jQuery(".mmenu:eq(2)").show();
 		});
 					
 		}else{ //isBonus=0;
+		stageEnd( "Mission 3", currentStage,replayCount,"failed",getdata3(),currentScore,hasB);
 		startNextLevel();
 		}
 	});
@@ -671,7 +684,7 @@ var BlockVisible =[];
 var stageShapesMin=1;
 var stageShapesMax=3;
 var currentLevelDisplay3=[1,1,2,2,3,3];
-function startMission3(){ shapeOrigin='Blocked'; $j("#gloss_btn,#help_btn,#menu_btn").show();
+function startMission3(){ shapeOrigin='Blocked'; $j("#gloss_btn,#help_btn,#menu_btn").show(); startTimerlvl();
 	AllowedSet=[];
 	BlockedSet=[];
 	BlockVisible =[];
@@ -1374,7 +1387,7 @@ $j(".allowedEff").hide();
 	startMission3()
 }
 
-function startNextLevel(){
+function startNextLevel(){ //startTimerlvl();
 $j("#trans3").hide();
 $j("#feedback").hide();
 $j(CurrentMission+".toolb").hide();

@@ -824,6 +824,8 @@ function PlaySound(respo){
 				}else{
 					 CorrectRelease.push({"clue":$j(CurrentMission2+'.questionResponse').length,"fig":$j(CurrentMission2+'.grid.selected').not('.released').map(function() { return $j(this).prop("fig")}).get()});
 				}
+				var txtCorrect= (correctSeletion?" (Incorrect) ":" (Correct)");
+				$j(CurrentMission2+'.questionResponse:eq(0)').append(txtCorrect);
 				$j(CurrentMission2+'.grid.selected').addClass("released");
 				$j(CurrentMission2+'.grid.released').each(function (){
 					if($j(this).prop("fig")==currentCulpret){

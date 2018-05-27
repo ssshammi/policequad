@@ -250,12 +250,12 @@ function init(argStatus, argLessonLocation)
 		}
 $j(window).bind('unload', function(){
 			//alert('unload event');
-			//doQuit();
+			doQuit();
 		});
 
 		window.onbeforeunload = function(){
 			$j(window).unbind('unload');
-		//	doQuit();
+			doQuit();
 			//return 'Are you sure you want to exit';
 		}
 		  var confirmationMessage = 'Are you sure you want to exit the game?';
@@ -285,6 +285,30 @@ function downloadGlossary(){
 			}		
 	});*/
 }
+
+function doQuit(){
+var JsonArray = 
+{
+                "app_name": "policesquadv2",
+                "event_type": "session_end",
+                "params": 
+{
+"StudentGroupName": GroupName,
+"location": "SchoolName",
+"MissionsPlayed": playedMission,
+"highScore": highScore,
+"starTotal": gameScore,
+"StorySkiped": StorySkiped,
+"GlossaryDownloaded": GlossaryDownloaded,
+"helpScreenviewed": helpScreen,
+"Mission1Stage": currentstage,
+"Mission2Stage": CurrentStage,
+"Mission3Stage": currentStage,
+"Mission4Stage": currentLevel +1
+}};   
+//pass the method to calculate score.
+window.opener.saveDataOnExit(JsonArray);
+}
 </script>
 
 </head>
@@ -293,7 +317,7 @@ function downloadGlossary(){
 <div id="close_btn" onclick="javascript:doQuit();"></div>
 <div id="audio_btn"></div>
 <!--a id="gloss_btn"  onClick="javascript:download()" href="images/Glossary.compressed.pdf" download="images/Glossary.compressedw.pdf"></a-->
-<a id="gloss_btn" target="_blank"  href="images/Glossary.compressed.pdf" ></a>
+<a id="gloss_btn" target="_blank" onClick="javascript:GlossaryDownloaded =true;"  href="images/Glossary.compressed.pdf" ></a>
 <!-- href="data:application/octet-stream;charset=utf-8,images%2FGlossary.compressed.pdf" download="Glossary.compressed.pdf -->
 <div id="help_btn"></div>
 <div id="menu_btn"></div>

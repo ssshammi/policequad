@@ -89,7 +89,7 @@ enableSoundsEff();
 //mission1();
 	$j(document).on('DOMNodeInserted', function(e) {
     $j(e.target).find('.example-image-link').each(function() { // console.log("hi");
-       $j(this).featherlight();;
+       $j(this).featherlight();
     });
 });
 loadedComps['splash'].getStage().play(1);
@@ -300,7 +300,6 @@ function EnableMission2(){
 	highScore = currentScore;
 	$j(".scoretxt2").html(highScore);
 		if(isMatched){ 
-
 		stageEnd( "Mission 2", CurrentStage,replayCount,"passed",getdata2(),currentScore,hasB);
 		CurrentStage++;
 		
@@ -367,7 +366,7 @@ function EnableMission2(){
 	var imgpath = $j(this).find('.img').css("background-image").replace(pathURL,"");
 	$j(this).find('.img').css('background-image',imgpath.replace(imgpath.substring(imgpath.indexOf("_"),imgpath.indexOf(".")),"_up"));
 	});
-	$j(this).addClass('active');
+	$j(this).addClass('active');pushtoolsClicked("Protractor tool");
 	$j(CurrentMission2+".ToolMain").show();
 	$j(CurrentMission2+".ToolMain").freetrans({ x: 250, y: 150, 'rot-origin': '50% 50%'});
 		var imgpath = $j(this).find('.img').css("background-image").replace(pathURL,"");
@@ -418,7 +417,7 @@ $j(CurrentMission2+".ToolMain2:visible").freetrans('destroy');
 	var imgpath = $j(this).find('.img').css("background-image").replace(pathURL,"");
 	$j(this).find('.img').css('background-image',imgpath.replace(imgpath.substring(imgpath.indexOf("_"),imgpath.indexOf(".")),"_up"));
 	});
-	$j(this).addClass('active');
+	$j(this).addClass('active'); pushtoolsClicked("Equal Sides marker tool");
 	var imgpath = $j(this).find('.img').css("background-image").replace(pathURL,"");
 	$j(this).find('.img').css('background-image',imgpath.replace(imgpath.substring(imgpath.indexOf("_"),imgpath.indexOf(".")),"_selected"));
 	
@@ -462,7 +461,7 @@ $j(CurrentMission2+".ToolMain2:visible").freetrans('destroy');
 	var imgpath = $j(this).find('.img').css("background-image").replace(pathURL,"");
 	$j(this).find('.img').css('background-image',imgpath.replace(imgpath.substring(imgpath.indexOf("_"),imgpath.indexOf(".")),"_up"));
 	});
-	$j(this).addClass('active');
+	$j(this).addClass('active'); pushtoolsClicked("Parallel Lines tool");
 	var imgpath = $j(this).find('.img').css("background-image").replace(pathURL,"");
 	$j(this).find('.img').css('background-image',imgpath.replace(imgpath.substring(imgpath.indexOf("_"),imgpath.indexOf(".")),"_selected"));
 	$j(CurrentMission2+'.rect').each(function (){
@@ -477,7 +476,7 @@ $j(CurrentMission2+".ToolMain2:visible").freetrans('destroy');
 	
 	});
 	
-	jQuery(CurrentMission2+".tool2:eq(3)").click(function() {
+	jQuery(CurrentMission2+".tool2:eq(3)").click(function() { pushtoolsClicked("reflex angle tool");
 	$j(CurrentMission2+".ToolMain:visible").freetrans('destroy');
 $j(CurrentMission2+".ToolMain2:visible").freetrans('destroy');
 		$j(CurrentMission2+".ToolMain").hide();
@@ -493,7 +492,7 @@ $j(CurrentMission2+".ToolMain2:visible").freetrans('destroy');
 		$j(this).css('background-image',$j(this).css("background-image").replace(imagePath.substring(imagePath.indexOf("_"),imagePath.indexOf(".")),"_tool2D"));
 	});	
 	});
-	jQuery(CurrentMission2+".tool2:eq(0)").click(function() {
+	jQuery(CurrentMission2+".tool2:eq(0)").click(function() { pushtoolsClicked("obtuse angle tool");
 	$j(CurrentMission2+".ToolMain:visible").freetrans('destroy');
 $j(CurrentMission2+".ToolMain2:visible").freetrans('destroy');
 		$j(CurrentMission2+".ToolMain").hide();
@@ -509,7 +508,7 @@ $j(CurrentMission2+".ToolMain2:visible").freetrans('destroy');
 		$j(this).css('background-image',$j(this).css("background-image").replace(imagePath.substring(imagePath.indexOf("_"),imagePath.indexOf(".")),"_tool2A"));
 	});	
 	});
-	jQuery(CurrentMission2+".tool2:eq(1)").click(function() { 		jQuery(CurrentMission2+".toolA").css('background-image','url(images/tool1B_selected.png)');
+	jQuery(CurrentMission2+".tool2:eq(1)").click(function() { 	pushtoolsClicked("right angle tool");	jQuery(CurrentMission2+".toolA").css('background-image','url(images/tool1B_selected.png)');
 		jQuery(CurrentMission2+".tool:lt(4)").each(function(){
 	$j(this).removeClass("active");
 	var imgpath = $j(this).find('.img').css("background-image").replace(pathURL,"");
@@ -520,7 +519,7 @@ $j(CurrentMission2+".ToolMain2:visible").freetrans('destroy');
 	$j(this).css('background-image',$j(this).css("background-image").replace(imagePath.substring(imagePath.indexOf("_"),imagePath.indexOf(".")),"_tool2B"));
 	});	
 	});
-	jQuery(CurrentMission2+".tool2:eq(2)").click(function() { 		jQuery(CurrentMission2+".toolA").css('background-image','url(images/tool1C_selected.png)');
+	jQuery(CurrentMission2+".tool2:eq(2)").click(function() { 	pushtoolsClicked("acute angle tool");	jQuery(CurrentMission2+".toolA").css('background-image','url(images/tool1C_selected.png)');
 		jQuery(CurrentMission2+".tool:lt(4)").each(function(){
 	$j(this).removeClass("active");
 	var imgpath = $j(this).find('.img').css("background-image").replace(pathURL,"");
@@ -832,9 +831,14 @@ function PlaySound(respo){
 					//if (($j(this).prop("ANS") == "N" && valueObj == 'N') || ($j(this).prop("ANS") == "Y" && valueObj != 'Y') || valueObj == 'Invalid' || valueObj == 'TBD'){
 				});
 				if(correctSeletion){
+					IncorrectRelease.push({"clue":$j(CurrentMission2+'.questionResponse').length,"fig":$j(CurrentMission2+'.grid.selected').not('.released').map(function() { return $j(this).prop("fig")}).get()});
 					calculateScore2();
 					//alertify.error('Token Lost incorrect suspect released.' );
+				}else{
+					 CorrectRelease.push({"clue":$j(CurrentMission2+'.questionResponse').length,"fig":$j(CurrentMission2+'.grid.selected').not('.released').map(function() { return $j(this).prop("fig")}).get()});
 				}
+				var txtCorrect= (correctSeletion?" (ग़लत) ":" (सही)");
+				$j(CurrentMission2+'.questionResponse:eq(0)').append(txtCorrect);
 				$j(CurrentMission2+'.grid.selected').addClass("released");
 				$j(CurrentMission2+'.grid.released').each(function (){
 					if($j(this).prop("fig")==currentCulpret){
@@ -1142,12 +1146,14 @@ var Mission1Shapes  ="fig001,fig002,fig003,fig004,fig005,fig006,fig007,fig018,fi
 }); */
 
 function mission4(){
+playedMission[(3)] =1;
 	hideAllScreens();
 	setMission4();
 	$("#mission4").show();
 	beginGame();
 }
 function mission3(){
+playedMission[(2)] =1;
 	hideAllScreens();
 	setMission3();
 	$("#mission3").show();
@@ -1168,20 +1174,46 @@ function setMission3(){
 function hideOtherMenu(){
 	$j("#gloss_btn,#help_btn,#menu_btn").hide();
 }
+function pushtoolsClicked( propertyName){
+	
+	ToolsClicked.push(propertyName.toString());
+}
+function pushhyerlink( propertyName){
+	
+	HyperlinksClicked.push(propertyName.toString());
+}
+function pushHyerlink( propertyName){
+	
+	HyperlinksClicked.push(propertyName.toString());
+}
 
 
 
-var Hyperlinks= [["समानांतर भुजाओं की जोड़ी",'<a class="example-image-link" target="_blank" href="images/G_parallelSide.png">समानांतर भुजाओं की जोड़ी</a>'],
-["सीधी भुजाओं",'<a class="example-image-link" target="_blank"  href="images/G_straightSide.png">सीधी भुजाओं</a>'],
-["वक्र भुजाओं",'<a class="example-image-link" target="_blank"  href="images/G_curvedSide.png">वक्र भुजाओं</a>'],
-["समान भुजाओं की जोड़ी",'<a class="example-image-link" target="_blank"  href="images/G_equalSide.png">समान भुजाओं की जोड़ी</a> '],
-["न्यून कोण",'<a class="example-image-link" target="_blank"  href="images/G_acuteAngle.png">न्यून कोण</a>'],
-["अधिक कोण",'<a class="example-image-link" target="_blank"  href="images/G_obtuseAngle.png">अधिक कोण</a>'],
-["सम कोण",'<a class="example-image-link" target="_blank"  href="images/G_rightAngle.png">सम कोण</a>'],
-["रिफ्लेक्स कोण",'<a class="example-image-link" target="_blank"  href="images/G_reflexAngle.png">रिफ्लेक्स कोण</a>'],
-["न्यून कोण",'<a class="example-image-link" target="_blank"  href="images/G_acuteAngle.png">न्यून कोण</a>'],
-["अधिक कोण",'<a class="example-image-link" target="_blank"  href="images/G_obtuseAngle.png">अधिक कोण</a>'],
-["समकोण",'<a class="example-image-link" target="_blank"  href="images/G_rightAngle.png">समकोण</a>'],
-["प्रतिवर्ती कोण",'<a class="example-image-link" target="_blank"  href="images/G_reflexAngle.png">प्रतिवर्ती कोण</a>']
+var Hyperlinks= [["समानांतर भुजाओं की जोड़ी",'<a class="example-image-link" target="_blank" onclick="pushHyerlink('+"'parallel'"+')" href="images/G_parallelSide.png">समानांतर भुजाओं की जोड़ी</a>'],
+["सीधी भुजाओं",'<a class="example-image-link" target="_blank"  onclick="pushHyerlink('+"'straight sides'"+');" href="images/G_straightSide.png">सीधी भुजाओं</a>'],
+["वक्र भुजाओं",'<a class="example-image-link" target="_blank"  onclick="pushHyerlink('+"'curved sides'"+')" href="images/G_curvedSide.png">वक्र भुजाओं</a>'],
+["समान भुजाओं की जोड़ी",'<a class="example-image-link" target="_blank"  onclick="pushHyerlink('+"'equal pairs of sides'"+');" href="images/G_equalSide.png">समान भुजाओं की जोड़ी</a> '],
+["न्यून कोण",'<a class="example-image-link" target="_blank"  onclick="pushHyerlink('+"'acute angles'"+');" href="images/G_acuteAngle.png">न्यून कोण</a>'],
+["अधिक कोण",'<a class="example-image-link" target="_blank"  onclick="pushHyerlink('+"'obtuse angles'"+');" href="images/G_obtuseAngle.png">अधिक कोण</a>'],
+["सम कोण",'<a class="example-image-link" target="_blank"  onclick="pushHyerlink('+"'right angles'"+');" href="images/G_rightAngle.png">सम कोण</a>'],
+["रिफ्लेक्स कोण",'<a class="example-image-link" target="_blank"  onclick="pushHyerlink('+"'reflex angles'"+');" href="images/G_reflexAngle.png">रिफ्लेक्स कोण</a>'],
+["न्यून कोण",'<a class="example-image-link" target="_blank"  onclick="pushHyerlink('+"'acute angle'"+');" href="images/G_acuteAngle.png">न्यून कोण</a>'],
+["अधिक कोण",'<a class="example-image-link" target="_blank"  onclick="pushHyerlink('+"'obtuse angle'"+');" href="images/G_obtuseAngle.png">अधिक कोण</a>'],
+["समकोण",'<a class="example-image-link" target="_blank"  onclick="pushHyerlink('+"'right angle'"+');" href="images/G_rightAngle.png">समकोण</a>'],
+["प्रतिवर्ती कोण",'<a class="example-image-link" target="_blank"  onclick="pushHyerlink('+"'reflex angle'"+');" href="images/G_reflexAngle.png">प्रतिवर्ती कोण</a>']
 ]; 
 
+/* Gameplay data - All Missions
+1.    Mission attempt number
+2.    Mission completed - yes/ no
+3.    Level wise data
+o	Stages attempted (linked to level)
+o	Stage completed (yes/ no)
+o	Highest Stage reached
+4.    Stage wise data
+o	Number of cases attempted (count of completed cases)
+o	Attempt number on case
+o	Number of cases solved correctly
+o	Number of cases replayed
+o	Stars earned/ Cases solved perfectly
+*/

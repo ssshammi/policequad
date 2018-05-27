@@ -557,8 +557,7 @@ return [computerShape,computerSelectedPoints,aSelectedVertex,compVFound,playerVF
   
   var ShapeBox =["वर्ग","वर्ग","आयत","आयत","समचतुर्भुज","समानांतर चतुर्भुज होगा"];
   var currentLevelDisplay4=[1,1,2,2,3,3,3];
-   function levelChange(level) { $j("#gloss_btn,#help_btn,#menu_btn").show(); $j(".Thinking").hide();
-   alertify.set({ labels: {ok: "आगे बढ़ें ", cancel : "वापसी"}  });
+   function levelChange(level) { $j("#gloss_btn,#help_btn,#menu_btn").show(); $j(".Thinking").hide(); startTimerlvl();
   // console.log("changed");
    $j(".mission").html("मिशन 4");
 	$j(".level").html("लेवल "+currentLevelDisplay4[level]);
@@ -677,7 +676,7 @@ return [computerShape,computerSelectedPoints,aSelectedVertex,compVFound,playerVF
  */
     currentLevel = level;
 	$j(".teleporter1Shape").find('.example-image-link').each(function() { //console.log("hi");
-       $j(this).featherlight();;
+       $j(this).featherlight();
     });
 	$j(".oppText").find('.example-image-link').each(function() { //console.log("hi");
        $j(this).featherlight();;

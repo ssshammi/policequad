@@ -49,6 +49,7 @@ teamSelected= parseInt(subs.substring(1, subs.length-1));
 		dataReady = true;
 		init();
 	}
+	startTimer();
 }
 function callGetValue()
 {
@@ -158,12 +159,13 @@ function getTimeSpentLvl()
 	//if (hrs < 10) hrs = "0" + hrs;
 	//if (min < 10) min = "0" + min;
 	//if (sec < 10) sec = "0" + sec;
-	//time = hrs + ":" + min + ":" + sec;
-	var addHrs = hrs * 60;
+	time = hrs + ":" + min + ":" + sec;
+	/*var addHrs = hrs * 60;
 	if(hrs<1)
 		return Math.ceil(min1);
 	else
-		return Math.ceil(addHrs+min1);
+		return Math.ceil(addHrs+min1);*/
+	return time;
 }
 
 
